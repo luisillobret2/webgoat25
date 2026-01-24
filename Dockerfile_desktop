@@ -44,4 +44,9 @@ RUN \
 
 ENV JAVA_HOME=/config/java-jdk
 
+# Mend traceability labels
+LABEL io.mend.identifier=755038fe0beb4f4b99ee50179cfa7578c60501252be64f81afc67be73501c029
+LABEL io.mend.image.dockerfile.path=main/Dockerfile_desktop
+LABEL org.opencontainers.image.source=https://github.com/luisillobret2/webgoat25
+
 WORKDIR /config/Desktop
