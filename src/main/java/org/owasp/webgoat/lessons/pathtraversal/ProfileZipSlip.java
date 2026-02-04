@@ -70,6 +70,15 @@ public class ProfileZipSlip extends ProfileUploadBase {
 
     try {
       var uploadedZipFile = tmpZipDirectory.resolve(file.getOriginalFilename());
+      try {
+        String canonicalPath = uploadedZipFile.toFile().getCanonicalPath();
+        if (!canonicalPath.startsWith(tmpZipDirectory.toFile().getCanonicalPath())) {
+          return failed(this).feedback("path-traversal-zip-slip.invalid-path").build();
+        }
+      } catch (IOException e) {
+        return failed(this).feedback("path-traversal-zip-slip.error").build();
+      }
+
       FileCopyUtils.copy(file.getBytes(), uploadedZipFile.toFile());
 
       ZipFile zip = new ZipFile(uploadedZipFile.toFile());
